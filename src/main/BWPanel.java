@@ -14,6 +14,9 @@ import javax.swing.Timer;
 import entities.Barrier;
 import entities.Path;
 import entities.Tile;
+import teams.CPU;
+import teams.Human;
+import teams.Team;
 
 public final class BWPanel extends JPanel {
 	
@@ -25,14 +28,17 @@ public final class BWPanel extends JPanel {
     
     private final Timer timer; 
     private final Tile[][] tiles;
+    private Team team1, team2;
     
-    // temporary
+    // TODO replace
     private final String[] barrierPositions = {"1,1","1,2","1,3","2,1","5,9","5,10","6,8","6,9","6,10","7,4","8,4"};
 	
 	BWPanel() {
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(Color.WHITE);
-
+        
+        team1 = new Human();
+        team2 = new CPU();
         tiles = new Tile[ROWS][COLS];	
         timer = new Timer(1000/TPS_DESIRED, this::tick);
         
@@ -67,12 +73,15 @@ public final class BWPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         final Graphics2D g2d = (Graphics2D) g;
-
+        
         for (int i = 0; i < ROWS; i++) {
 			for (int j = 0; j < COLS; j++) {
 				tiles[i][j].draw(g2d);
 			}
 		}
+        
+        team1.draw(g2d);
+        team2.draw(g2d);
     }
 
 }
