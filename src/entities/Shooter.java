@@ -2,10 +2,12 @@ package entities;
 
 public class Shooter extends Block {
 	
-	private static final String IMG_NAME = "imgs/green.png";
+	private static final String SHADE_NAME = "med";
 
-	public Shooter(int row, int col) {
-		super(row, col, IMG_NAME);
+	public Shooter(int row, int col, String skinName) {
+		super(row, col, getImgName(skinName, SHADE_NAME));
 	}
+
+	
 
 }

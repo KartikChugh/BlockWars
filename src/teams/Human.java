@@ -5,9 +5,14 @@ import main.BWPanel;
 
 public class Human extends Team {
 	
-	public Human() {
-		super();
-		blocks.add(new Shooter(BWPanel.ROWS-2,1)); // TODO replace
+	public Human(String skinName) {
+		super(skinName);
+		blocks.add(new Shooter(BWPanel.ROWS-2, 1, skinName)); // TODO replace
+	}
+	
+	@Override
+	public void beginTurn() {
+		
 	}
 
 }

@@ -13,5 +13,9 @@ public abstract class Block extends Tile {
 		col = newCol;
 		recalculateCoords();
 	}
+	
+	protected static String getImgName(String skinName, String shadeName) {
+		return "imgs/" + skinName + "/" + shadeName + ".png";
+	}
 
 }

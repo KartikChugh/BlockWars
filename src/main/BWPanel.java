@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,9 +39,11 @@ public final class BWPanel extends JPanel {
 	BWPanel() {
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(Color.WHITE);
+        //addMouseListener(new aMouseListener());
         
-        team1 = new Human();
-        team2 = new CPU();
+        team1 = new Human("red");
+        team2 = new CPU("blue");
+        
         tiles = new Tile[ROWS][COLS];	
         timer = new Timer(1000/TPS_DESIRED, this::tick);
         
@@ -83,5 +88,15 @@ public final class BWPanel extends JPanel {
         team1.draw(g2d);
         team2.draw(g2d);
     }
+    
+/*    private class aMouseListener extends MouseAdapter {
+    	
+    	@Override
+    	public void mouseClicked(MouseEvent e) {
+    		// TODO Auto-generated method stub
+    		super.mouseClicked(e);
+    	}
+    	
+    }*/
 
 }

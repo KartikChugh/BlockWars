@@ -26,11 +26,7 @@ public abstract class Tile {
 	}
 	
 	protected void recalculateCoords() {
-		int tilesWidth = width * BWPanel.COLS;
-		int widthRemaining = BWPanel.WIDTH - tilesWidth;
-		int xStart = widthRemaining/2;
-		
-		this.x = xStart + width*col;
+		this.x = (BWPanel.WIDTH - (width * BWPanel.COLS))/2 + width*col;
 		this.y = (BWPanel.HEIGHT - (height * BWPanel.ROWS))/2 + height*row;
 	}
 

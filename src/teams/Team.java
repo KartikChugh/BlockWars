@@ -11,17 +11,18 @@ import main.BWPanel;
 public abstract class Team {
 	
 	protected List<Block> blocks = new ArrayList<>();
+	protected String skinName; // TODO useful?
 	
-/*	public Team() {
+	public Team(String skinName) {
 		
-		
-		
-	}*/
-	
-	public void draw(Graphics2D g2d) {
-		
-		blocks.forEach(b -> b.draw(g2d));		
+		this.skinName = skinName;
 		
 	}
+	
+	public void draw(Graphics2D g2d) {
+		blocks.forEach(b -> b.draw(g2d));		
+	}
+	
+	public abstract void beginTurn();
 
 }
