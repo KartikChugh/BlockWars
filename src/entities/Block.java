@@ -8,7 +8,7 @@ public abstract class Block extends Tile {
 		super(row, col, imgName);
 	}
 	
-	public void move(int newRow, int newCol) {
+	public final void move(int newRow, int newCol) {
 		row = newRow;
 		col = newCol;
 		recalculateCoords();

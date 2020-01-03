@@ -7,12 +7,12 @@ public class CPU extends Team {
 	
 	public CPU(String skinName) {
 		super(skinName);
-		blocks.add(new Shooter(1, BWPanel.COLS-1, skinName));
+		blocks.add(new Shooter(1, BWPanel.COLS-2, skinName));
 	}
 	
-	@Override
+/*	@Override
 	public void beginTurn() {
 		System.out.println("CPU finished its turn.");
-	}
+	}*/
 
 }

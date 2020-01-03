@@ -10,9 +10,9 @@ public class Human extends Team {
 		blocks.add(new Shooter(BWPanel.ROWS-2, 1, skinName)); // TODO replace
 	}
 	
-	@Override
+/*	@Override
 	public void beginTurn() {
 		
-	}
+	}*/
 
 }

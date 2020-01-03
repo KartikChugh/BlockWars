@@ -2,6 +2,8 @@ package entities;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
@@ -12,8 +14,8 @@ public abstract class Tile {
 	protected int row;
 	protected int col;
 	
-	private int width = 48;
-	private int height = 48;
+	private final int width = 48;
+	private final int height = 48;
 	private int x;
 	private int y;
 	private String imgName;
@@ -25,16 +27,22 @@ public abstract class Tile {
 		this.imgName = imgName;
 	}
 	
-	protected void recalculateCoords() {
+	protected final void recalculateCoords() {
 		this.x = (BWPanel.WIDTH - (width * BWPanel.COLS))/2 + width*col;
 		this.y = (BWPanel.HEIGHT - (height * BWPanel.ROWS))/2 + height*row;
 	}
 
-	public void draw(Graphics2D g2d) {
+	public final void draw(Graphics2D g2d) {
 		
 		final Image img = new ImageIcon(imgName).getImage();
 		g2d.drawImage(img, x, y, null);
 		
+	}
+
+	public boolean handleClick(Point clickPoint) {
+		boolean selected = new Rectangle(x, y, width, height).contains(clickPoint);
+		
+		return selected;
 	}
 
 }

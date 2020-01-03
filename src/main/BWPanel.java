@@ -4,22 +4,27 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import entities.Barrier;
+import entities.Block;
 import entities.Path;
 import entities.Tile;
+import entities.Tileset;
 import teams.CPU;
 import teams.Human;
 import teams.Team;
+import teams.Team.PlayState;
 
 public final class BWPanel extends JPanel {
 	
@@ -30,21 +35,18 @@ public final class BWPanel extends JPanel {
     public static final int COLS = 11;
     
     private final Timer timer; 
-    private final Tile[][] tiles;
+    private final Tileset tileset;
     private Team team1, team2;
     
-    // TODO replace
-    private final String[] barrierPositions = {"1,1","1,2","1,3","2,1","5,9","5,10","6,8","6,9","6,10","7,4","8,4"};
 	
 	BWPanel() {
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        setBackground(Color.WHITE);
-        //addMouseListener(new aMouseListener());
+        //setBackground(Color.WHITE);
+        addMouseListener(new aMouseListener());
         
-        team1 = new Human("red");
-        team2 = new CPU("blue");
         
-        tiles = new Tile[ROWS][COLS];	
+        
+        tileset = new Tileset(ROWS, COLS);
         timer = new Timer(1000/TPS_DESIRED, this::tick);
         
         init();
@@ -52,22 +54,10 @@ public final class BWPanel extends JPanel {
 	}
 	
 	private void init() {
-		
-		final List<String> barrierPositionsList = Arrays.asList(barrierPositions);
-		
-		for (int i = 0; i < ROWS; i++) {
-			for (int j = 0; j < COLS; j++) {
-				
-				tiles[i][j] = new Path(i, j);
-				
-				if (barrierPositionsList.contains(i + "," + j)) {
-					tiles[i][j] = new Barrier(i, j);
-				}
-				
-			}
-			
-		}
-		
+		tileset.initialize();
+		team1 = new Human("red");
+        team2 = new CPU("blue");
+        team1.playState = PlayState.SELECT_BLOCK;
 	}
 
 	private void tick(ActionEvent e) {
@@ -79,24 +69,29 @@ public final class BWPanel extends JPanel {
         super.paintComponent(g);
         final Graphics2D g2d = (Graphics2D) g;
         
-        for (int i = 0; i < ROWS; i++) {
-			for (int j = 0; j < COLS; j++) {
-				tiles[i][j].draw(g2d);
-			}
-		}
-        
+        tileset.draw(g2d);        
         team1.draw(g2d);
         team2.draw(g2d);
     }
     
-/*    private class aMouseListener extends MouseAdapter {
+    private class aMouseListener extends MouseAdapter {
     	
     	@Override
     	public void mouseClicked(MouseEvent e) {
-    		// TODO Auto-generated method stub
-    		super.mouseClicked(e);
+    		final Point clickPoint = e.getPoint();
+    		
+    		Block block;
+    		if ((block = team1.getClickedBlock(clickPoint)) == null) {
+    			block = team2.getClickedBlock(clickPoint);
+    		}
+/*    		if (tile == null) {
+    			tile = tileset.getClickedTile(clickPoint);
+    		}*/
+    		
+    		System.out.println(block);
+    		
     	}
     	
-    }*/
+    }
 
 }
