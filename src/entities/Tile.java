@@ -38,14 +38,11 @@ public abstract class Tile {
 
 	public final boolean isClicked(Point clickPoint) {
 		boolean selected = new Rectangle(x, y, width, height).contains(clickPoint);
-//		if (selected) {
-//			handleSelection();
-//		}
 		return selected;
 	}
 
-	protected void handleSelection() {
-		return; // do nothing by default
+	public boolean isWalkable() {
+		return false;
 	}
 
 }

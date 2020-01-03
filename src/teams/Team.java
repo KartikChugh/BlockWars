@@ -2,8 +2,7 @@ package teams;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import entities.Block;
 
@@ -42,13 +41,13 @@ public abstract class Team {
 		return false;
 	}*/
 	
-	public Block getClickedBlock(Point pt) {
+	public Optional<Block> getClickedBlock(Point pt) {
 		for (Block block : blocks) {
 			if (block.isClicked(pt)) {
-				return block;
+				return Optional.of(block);
 			}
         }
-		return null;
+		return Optional.empty();
 	}
 
 }

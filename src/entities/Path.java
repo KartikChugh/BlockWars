@@ -8,6 +8,9 @@ public class Path extends Tile {
 		super(row, col, IMG_NAME);
 	}
 	
-	
+	@Override
+	public boolean isWalkable() {
+		return true;
+	}
 
 }

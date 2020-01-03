@@ -2,8 +2,7 @@ package main;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import entities.*;
 import teams.*;
@@ -13,13 +12,11 @@ public final class GameManager {
 	private final Tileset tileset;
 	private List<Team> teams;
 	private int turn;
-	private boolean selectedBlock;
-	private Block selection;
+	private Block selectedBlock;
 	
 	public GameManager(int rows, int cols) {
 		
-		selection = null;
-		selectedBlock = false;
+		selectedBlock = null;
 		turn = 0;
 		
 		tileset = new Tileset(rows, cols);
@@ -37,47 +34,59 @@ public final class GameManager {
 		
 		//System.out.println("Current team: " + current);
 		//System.out.println("Other teams: " + others);
-		
-		Tile potentialSelection;
+	
 		
 		// Block selection
-		if (!selectedBlock) {			
-			potentialSelection = current.getClickedBlock(pt);
-			if (potentialSelection != null) {
-				System.out.println("Selected block: " + potentialSelection);
-				selection = (Block) potentialSelection;
-				selectedBlock = true;
+		if (selectedBlock == null) {			
+			Optional<Block> optionalSelection = current.getClickedBlock(pt);
+			if (optionalSelection.isPresent()) {
+				selectBlock(optionalSelection.get());
 			}
 			return;
 		}
 		
 		
-		
 		// Target block selection
 		for (Team other : others) {
-			potentialSelection = other.getClickedBlock(pt);
-			if (potentialSelection != null) {
-				System.out.println("Selected target block: " + potentialSelection);
-				selectedBlock = false;
-				nextTurn();
+			Optional<Block> optionalSelection = other.getClickedBlock(pt);
+			if (optionalSelection.isPresent()) {
+				selectTargetBlock(optionalSelection.get());
 				return;
 			}
 		}
 		
 		// Target tile selection
-		potentialSelection = tileset.getClickedTile(pt);
-		if (potentialSelection != null) {
-			System.out.println("Selected target tile: " + potentialSelection);
-			selection.move(potentialSelection.row, potentialSelection.col);
-			selectedBlock = false;
-			nextTurn();
+		Optional<Tile> optionalSelection = tileset.getClickedTile(pt);
+		if (optionalSelection.isPresent()) {
+			selectTargetTile(optionalSelection.get());
 			return;
 		}
+	}
+	
+	private void selectBlock(Block selection) {
+		System.out.println("Selected block: " + selection);
 		
+		selectedBlock = selection;
+	}
+	
+	private void selectTargetBlock(Block selection) {
+		System.out.println("Selected target block: " + selection);
 		
+		nextTurn();
+	}
+	
+	private void selectTargetTile(Tile selection) {
+		System.out.println("Selected target tile: " + selection);
+		
+		if (selection.isWalkable()) {
+			selectedBlock.move(selection.row, selection.col);
+			nextTurn();
+		}
+
 	}
 	
 	private void nextTurn() {
+		selectedBlock = null;
 		turn++;
 		turn %= teams.size();
 	}

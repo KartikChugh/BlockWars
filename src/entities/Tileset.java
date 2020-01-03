@@ -2,8 +2,7 @@ package entities;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public final class Tileset {
 	
@@ -44,15 +43,15 @@ public final class Tileset {
         }
 	}
 
-	public Tile getClickedTile(Point pt) {
+	public Optional<Tile> getClickedTile(Point pt) {
 		for (Tile[] row : tiles) {
         	for (Tile tile : row) {
         		if (tile.isClicked(pt)) {
-        			return tile;
+        			return Optional.of(tile);
         		}
         	}
         }
-		return null;
+		return Optional.empty();
 	}	
 
 }
