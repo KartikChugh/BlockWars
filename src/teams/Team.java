@@ -6,17 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entities.Block;
-import entities.Shooter;
-import entities.Tile;
-import main.BWPanel;
 
 public abstract class Team {
 	
-	public enum PlayState {
-		WAIT, SELECT_BLOCK, SELECT_TARGET,
-	}
+//	public enum PlayState {
+//		WAIT, SELECT_BLOCK, SELECT_TARGET,
+//	}
 	
-	public PlayState playState = PlayState.WAIT;
+	//public PlayState playState = PlayState.WAIT;
 	protected List<Block> blocks = new ArrayList<>();
 	protected String skinName; // TODO useful?
 	
@@ -32,22 +29,22 @@ public abstract class Team {
 	
 	//public abstract void beginTurn();
 	
-	public boolean handleClick(Point clickPoint) {
-		if (playState == PlayState.WAIT) {
-			return false;
-		}
+/*	public boolean handleClick(Point clickPoint) {
+//		if (playState == PlayState.WAIT) {
+//			return false;
+//		}
 		for (Block block : blocks) {
-			if (block.handleClick(clickPoint)) {
+			if (block.isClicked(clickPoint)) {
 				
 				return true;
 			}
 		}
 		return false;
-	}
+	}*/
 	
-	public Block getClickedBlock(Point clickPoint) {
+	public Block getClickedBlock(Point pt) {
 		for (Block block : blocks) {
-			if (block.handleClick(clickPoint)) {
+			if (block.isClicked(pt)) {
 				return block;
 			}
         }

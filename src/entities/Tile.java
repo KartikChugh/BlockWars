@@ -1,9 +1,6 @@
 package entities;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 
 import javax.swing.ImageIcon;
 
@@ -11,8 +8,8 @@ import main.BWPanel;
 
 public abstract class Tile {
 	
-	protected int row;
-	protected int col;
+	public int row;
+	public int col;
 	
 	private final int width = 48;
 	private final int height = 48;
@@ -39,10 +36,16 @@ public abstract class Tile {
 		
 	}
 
-	public boolean handleClick(Point clickPoint) {
+	public final boolean isClicked(Point clickPoint) {
 		boolean selected = new Rectangle(x, y, width, height).contains(clickPoint);
-		
+//		if (selected) {
+//			handleSelection();
+//		}
 		return selected;
+	}
+
+	protected void handleSelection() {
+		return; // do nothing by default
 	}
 
 }

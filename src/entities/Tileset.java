@@ -43,16 +43,16 @@ public final class Tileset {
         	}
         }
 	}
-	
-/*	public Tile getClickedTile(Point clickPoint) {
+
+	public Tile getClickedTile(Point pt) {
 		for (Tile[] row : tiles) {
         	for (Tile tile : row) {
-        		 if (tile.isClicked(clickPoint)) {
-        			 return tile;
-        		 }
+        		if (tile.isClicked(pt)) {
+        			return tile;
+        		}
         	}
         }
 		return null;
-	}*/
+	}	
 
 }
