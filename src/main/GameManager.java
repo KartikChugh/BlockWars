@@ -67,6 +67,7 @@ public final class GameManager {
 		System.out.println("Selected block: " + selection);
 		
 		selectedBlock = selection;
+		//TODO markWalkablePaths();
 	}
 	
 	private void selectTargetBlock(Block selection) {

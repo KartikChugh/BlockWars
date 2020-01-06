@@ -10,7 +10,7 @@ public class Path extends Tile {
 	
 	@Override
 	public boolean isWalkable() {
-		return true;
+		return true; //TODO should be false usually
 	}
 
 }
